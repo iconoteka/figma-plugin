@@ -20,9 +20,29 @@
     "editorType": [
       "figma"
     ],
-    "id": "preact-rectangles",
-    "name": "Preact Rectangles",
+    "id": "iconoteka-0.0.2",
+    "name": "Iconoteka Alpha 0.0.2",
     "main": "src/main.ts",
-    "ui": "src/ui.tsx"
+    "ui": "src/ui.tsx",
+    "parameterOnly": false,
+    "parameters": [
+      {
+        "name": "Style",
+        "key": "style",
+        "description": "Icon style: fill or stroke"
+  
+      },
+      {
+        "name": "Weight",
+        "key": "weight",
+        "description": "Icon weight: light, regular, medium or bold"
+  
+      },
+      {
+        "name": "Icon",
+        "key": "icon",
+        "description": "Search for an icon"
+      }
+    ]
   }
 }

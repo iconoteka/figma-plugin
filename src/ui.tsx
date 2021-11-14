@@ -13,7 +13,7 @@ import {
 import styles from './ui.css';
 import useObserver from "preact-intersection-observer";
 
-const backendUrl = 'http://localhost:8081';
+const backendUrl = 'https://staging.iconoteka.com:8080';
 
 import { emit } from '@create-figma-plugin/utilities'
 import { h } from 'preact'
