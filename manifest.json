@@ -1,0 +1,10 @@
+{
+  "api": "1.0.0",
+  "editorType": [
+    "figma"
+  ],
+  "id": "iconoteka-0.0.1",
+  "name": "Iconoteka Alpha 0.0.1",
+  "main": "build/main.js",
+  "ui": "build/ui.js"
+}
