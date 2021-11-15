@@ -29,7 +29,11 @@ export default function () {
       window.parent.postMessage({ pluginMessage: ['BACKEND_RESPONSE', json] }, "*");
     };
     </script><h1>Icons</h1>`,
-    { visible: false }
+    { 
+      visible: false,
+      width: 325,
+      height: 500
+    }
   );
 
   on('BACKEND_RESPONSE', (json) => {

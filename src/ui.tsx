@@ -3,6 +3,8 @@ import {
   Columns,
   Container,
   Divider,
+  LoadingIndicator,
+  MiddleAlign,
   render,
   SearchTextbox,
   SegmentedControl,
@@ -22,7 +24,7 @@ import { useCallback, useState, useEffect } from 'preact/hooks'
 import { CloseHandler, CreateRectanglesHandler } from './types'
 
 function Plugin() {
-  const [icons, setIcons] = useState([]);
+  const [icons, setIcons] = useState<null | any[]>(null);
   const [searchParams, setSearchParams] = useState({
     weight: 'regular',
     style: 'stroke',
@@ -73,13 +75,20 @@ function Plugin() {
       placeholder="Search"
       onInput={handleQueryChange}
     />
-    <Divider />
+    <Container>
     <SegmentedControl class={styles.container} onChange={handleWeightChange} options={[{children: 'Bold', value: 'bold'}, {children: 'Medium', value: 'medium'}, {children: 'Regular', value: 'regular'}, {children: 'Light', value: 'light'} ]} value={searchParams.weight} />
-    <Divider />
+    
+    <VerticalSpace space="extraSmall" />
+    
     <SegmentedControl onChange={handleStyleChange} options={[{children: 'Stroke', value: 'stroke'}, {children: 'Fill', value: 'fill'}, ]} value={searchParams.style} />
+
+    </Container>
+    <VerticalSpace space="small" />
     <Divider />
-    <Container style={{height: '408px', overflow: 'scroll', paddingBottom: '20px', boxSizing: 'border-box'}}>
-     { icons.map((group: any) => (
+    <Container style={{height: '390px', overflow: 'scroll', paddingBottom: '20px', boxSizing: 'border-box'}}>
+     { icons === null 
+        ?  <MiddleAlign><LoadingIndicator /></MiddleAlign>
+        : icons.map((group: any) => (
        <Group group={group} />
      ))}
 
@@ -96,7 +105,7 @@ function Plugin() {
 
 function Group(props: any) {
   const { group, ...otherProps } = props;
-  const [sectionRef, inView] = useObserver({threshold: 0.1});
+  const [sectionRef, inView] = useObserver({threshold: 0.01});
   console.log(group.name, 'inView', inView);
 
  return ( 
@@ -113,6 +122,34 @@ function Group(props: any) {
 
 }
 
+function Image(props: any) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    let img = new window.Image();
+    img.src = props.src;
+    img.onload = onImageLoad;
+  }, []);
+
+  const onImageLoad = () => {
+    setIsLoaded(true);
+  }
+
+  const style = {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    opacity: isLoaded ? 1 : 0,
+    width: '30px',
+    height: '30px',
+    background: 'white',
+    transition: 'opacity 0.08s ease 0s'
+  }
+
+  return (
+    <img src={props.src} style={style} onClick={props.onClick}/>
+  )
+}
 function Icon(props: any) {
   const { icon, isVisible } = props;
   const url = `${backendUrl}/media/${icon.path}`;
@@ -125,19 +162,33 @@ function Icon(props: any) {
     })();
   };
 
-  const iconStyle: h.JSX.CSSProperties = {
+  const containerStyle: h.JSX.CSSProperties = {
     marginRight: '20px',
     marginTop: '20px',
     width: '30px',
     height: '30px',
-    background: isVisible ? 'none' : '#a7a7a7',
+    background: 'white',
     display: 'inline-block',
+    position: 'relative',
     cursor: 'pointer',
   }
+
+  const placeholderStyle: h.JSX.CSSProperties = {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    width: '30px',
+    height: '30px',
+    background: '#E2E2E2'
+  }
+
  return (
-  isVisible 
-    ? <img src={url} style={iconStyle} onClick={handleClick}/> 
-    : <div style={iconStyle}></div>
+  <div style={containerStyle}>
+    <div style={placeholderStyle}></div>
+
+    {isVisible && <Image src={url} onClick={handleClick}/> }
+
+  </div>
  )
 }
 
