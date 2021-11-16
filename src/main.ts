@@ -31,7 +31,7 @@ export default function () {
     </script><h1>Icons</h1>`,
     { 
       visible: false,
-      width: 325,
+      width: 319,
       height: 500
     }
   );
@@ -88,7 +88,7 @@ export default function () {
       figma.closePlugin(`${parameters?.icon.name} icon added`);
     } else {
       showUI({
-        width: 325,
+        width: 319,
         height: 500
       });
     }

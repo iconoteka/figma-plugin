@@ -20,8 +20,8 @@
     "editorType": [
       "figma"
     ],
-    "id": "iconoteka-0.0.3",
-    "name": "Iconoteka Alpha 0.0.3",
+    "id": "iconoteka-0.0.6",
+    "name": "Iconoteka Alpha 0.0.6",
     "main": "src/main.ts",
     "ui": "src/ui.tsx",
     "parameterOnly": false,

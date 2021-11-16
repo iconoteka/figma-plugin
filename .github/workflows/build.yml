@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - run: mkdir iconoteka-plugin-figma
+    - run: cp -r build iconoteka-plugin-figma/
+    - run: cp manifest.json iconoteka-plugin-figma/
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: iconoteka-plugin-figma
+        path: iconoteka-plugin-figma/

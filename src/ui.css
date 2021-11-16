@@ -1,4 +1,50 @@
-.container:hover {
-  border: none;
-  background: red;
+/* 
+.style-selector > div > div,
+.style-selector > div:hover > div {
+  border: 0px solid var(--color-silver) !important;
+} */
+:root {
+  --icon-width: 24px;
+  --icon-height: 24px;
+}
+
+.style-selector > div:focus-within > div {
+  border: 0px solid var(--color-silver) !important;
+}
+.iconsContainer {
+  margin-top: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 30px);
+  justify-content: left;
+}
+
+.iconContainer {
+  width: var(--icon-width);
+  height: var(--icon-height);
+  background: white;
+  display: inline-block;
+  position: relative;
+  cursor: pointer
+}
+
+.iconPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--icon-width);
+  height: var(--icon-height);
+  background: rgb(238, 238, 238);
+  opacity: 0;
+  transition: opacity 0.08s ease 0.3s;
+}
+
+.iconImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--icon-width);
+  height: var(--icon-height);
+  background: white;
+  transition: opacity 0.08s ease 0s;
 }
