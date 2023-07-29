@@ -6,6 +6,8 @@
 :root {
   --icon-width: 24px;
   --icon-height: 24px;
+  --font-color-base: #000;
+  --font-color-light: #ABABAB;
 }
 
 .style-selector > div:focus-within > div {
@@ -20,7 +22,7 @@
 }
 
 .iconContainer {
-  width: var(--icon-width);
+  width: 50px;
   height: var(--icon-height);
   background: white;
   display: inline-block;
@@ -45,6 +47,35 @@
   left: 0;
   width: var(--icon-width);
   height: var(--icon-height);
-  background: white;
+  image-rendering: crisp-edges;
+
+  /* background: white; */
   transition: opacity 0.08s ease 0s;
+}
+
+.footer {
+  display: flex;
+  padding: 0 var(--space-small) var(--space-small);
+}
+
+.footer a, .footer a:hover, .footer a:active {
+  color: var(--font-color-base);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer__about {
+
+}
+
+.footer__support {
+  flex-grow: 1;
+  padding-left: 16px;
+}
+
+.footer__version {
+  color: var(--font-color-light);
 }

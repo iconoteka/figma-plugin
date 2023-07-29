@@ -4,6 +4,10 @@ declare const styles: {
   readonly "iconContainer": string;
   readonly "iconPlaceholder": string;
   readonly "iconImage": string;
+  readonly "footer": string;
+  readonly "footer__about": string;
+  readonly "footer__support": string;
+  readonly "footer__version": string;
 };
 export = styles;
 

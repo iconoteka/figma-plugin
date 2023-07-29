@@ -14,19 +14,34 @@ import {
 } from '@create-figma-plugin/ui';
 import styles from './ui.css';
 import useObserver from "preact-intersection-observer";
-
+import { version }from "../package.json";
 const backendUrl = 'https://staging.iconoteka.com:8080';
 
-import { emit } from '@create-figma-plugin/utilities'
+import { emit, EventHandler } from '@create-figma-plugin/utilities'
 import { h } from 'preact'
 import { useCallback, useState, useEffect } from 'preact/hooks'
 
 import { CloseHandler, CreateRectanglesHandler } from './types'
 
+const Footer = () => {
+  return (
+  <div className={styles.footer}>
+    <div className={styles.footer__about}>
+      <a href="https://readymag.com/turbaba/1296248/" target="_blank">About</a>
+    </div>
+    <div className={styles.footer__support}>
+      <a href="https://www.patreon.com/iconoteka" target="_blank">Support us on Patreon</a>
+    </div>
+    <div className={styles.footer__version}>
+      v{version}
+    </div>
+ </div>
+ )
+}
 function Plugin() {
   const [icons, setIcons] = useState<null | any[]>(null);
   const [searchParams, setSearchParams] = useState({
-    weight: 'regular',
+    weight: 'bold',
     style: 'stroke',
     query: '',
   });
@@ -86,20 +101,18 @@ function Plugin() {
     </Container>
     <VerticalSpace space="small" />
     <Divider />
-    <Container style={{height: '390px', overflowY: 'auto', paddingBottom: '20px', boxSizing: 'border-box'}}>
+    <Container style={{height: '338px', overflowY: 'auto', paddingBottom: '20px', boxSizing: 'border-box'}}>
      { icons === null 
         ?  <MiddleAlign><LoadingIndicator /></MiddleAlign>
         : icons.map((group: any) => (
        <Group group={group} />
      ))}
 
+    </Container>
     <VerticalSpace space="small" />
     <Divider />
     <VerticalSpace space="small" />
-     <Text>
-      <a href="https://iconoteka.com" target="_blank">Powered by Iconoteka</a>
-    </Text>
-    </Container>
+    <Footer />
     </div>
   )
 }
@@ -122,8 +135,11 @@ function Group(props: any) {
 );
 
 }
-
-function Image(props: any) {
+type ImageProps = {
+  src: string;
+  onClick: (event: any) => void;
+}
+function Image(props: ImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [placeholderClass, setPlaceholderClass] = useState('');
 
@@ -141,8 +157,16 @@ function Image(props: any) {
     opacity: isLoaded ? 1 : 0
   }
 
+  const divStyle = {
+    width: '24px',
+    height: '24px',
+    background: `url(${props.src}) no-repeat`,
+  }
   return (
-    <img src={props.src} class={styles.iconImage} style={style} onClick={props.onClick}/>
+    <div>
+      {/* <div style={divStyle}></div> */}
+      <img src={props.src} class={styles.iconImage} style={style} onClick={props.onClick}/>
+    </div>
   )
 }
 function Icon(props: any) {
