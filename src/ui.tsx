@@ -18,7 +18,6 @@ import { emit } from "@create-figma-plugin/utilities";
 import { h } from "preact";
 import { useState, useEffect } from "preact/hooks";
 
-
 const Footer = () => {
   return (
     <div className={styles.footer}>
@@ -36,8 +35,19 @@ const Footer = () => {
     </div>
   );
 };
+
+const NoIcons = () => {
+  return (
+    <div className={styles.NoIcons}>
+      Sorry, we don't have this icon yet.
+      <br />
+      <a href="mailto:hello@iconoteka.com">Submit icon</a>
+    </div>
+  );
+};
 function Plugin() {
   const [icons, setIcons] = useState<null | any[]>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useState({
     weight: "bold",
     style: "stroke",
@@ -52,6 +62,7 @@ function Plugin() {
       const icons = await result.json();
 
       setIcons(icons);
+      setIsLoading(false);
     })();
   }, [searchParams.weight, searchParams.style, searchParams.query]);
 
@@ -121,13 +132,17 @@ function Plugin() {
           boxSizing: "border-box",
         }}
       >
-        {icons === null ? (
+        {isLoading && (
           <MiddleAlign>
             <LoadingIndicator />
           </MiddleAlign>
-        ) : (
-          icons.map((group: any) => <Group group={group} />)
         )}
+
+        {!isLoading &&
+          icons?.length !== 0 &&
+          icons?.map((group: any) => <Group group={group} />)}
+
+        {!isLoading && icons?.length === 0 && <NoIcons />}
       </Container>
       <VerticalSpace space="small" />
       <Divider />
