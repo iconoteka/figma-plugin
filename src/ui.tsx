@@ -128,6 +128,7 @@ function Plugin() {
         style={{
           height: "338px",
           overflowY: "auto",
+          overflowX: "hidden",
           paddingBottom: "20px",
           boxSizing: "border-box",
         }}
@@ -144,9 +145,7 @@ function Plugin() {
 
         {!isLoading && icons?.length === 0 && <NoIcons />}
       </Container>
-      <VerticalSpace space="small" />
       <Divider />
-      <VerticalSpace space="small" />
       <Footer />
     </div>
   );
