@@ -31,7 +31,7 @@ const Footer = () => {
           Support us on Patreon
         </a>
       </div>
-      <div className={styles.footer__version}>v{version}</div>
+      <div className={styles.footer__version}>V{version}</div>
     </div>
   );
 };
