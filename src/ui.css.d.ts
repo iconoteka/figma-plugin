@@ -3,6 +3,7 @@ declare const styles: {
   readonly "iconsContainer": string;
   readonly "iconContainer": string;
   readonly "iconPlaceholder": string;
+  readonly "iconImageContainer": string;
   readonly "iconImage": string;
   readonly "footer": string;
   readonly "footer__about": string;

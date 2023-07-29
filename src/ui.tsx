@@ -191,7 +191,8 @@ function Image(props: ImageProps) {
   };
 
   return (
-    <div>
+    <div 
+    className={styles.iconImageContainer}>
       {/* <div style={divStyle}></div> */}
       <img
         src={props.src}
