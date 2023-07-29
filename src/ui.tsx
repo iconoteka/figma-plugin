@@ -176,11 +176,6 @@ function Image(props: ImageProps) {
     opacity: isLoaded ? 1 : 0,
   };
 
-  const divStyle = {
-    width: "24px",
-    height: "24px",
-    background: `url(${props.src}) no-repeat`,
-  };
   return (
     <div>
       {/* <div style={divStyle}></div> */}
@@ -197,7 +192,7 @@ function Icon(props: any) {
   const { icon, isVisible } = props;
   const url = `${backendUrl}/media/${icon.path}`;
 
-  const handleClick = (event: any) => {
+  const handleClick = () => {
     (async () => {
       const svgRequest = await fetch(url);
       const svg = await svgRequest.text();
