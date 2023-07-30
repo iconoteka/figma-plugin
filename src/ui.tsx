@@ -17,6 +17,13 @@ const backendUrl = "https://staging.iconoteka.com:8080";
 import { emit } from "@create-figma-plugin/utilities";
 import { h } from "preact";
 import { useState, useEffect } from "preact/hooks";
+import {
+  Iconoteka,
+  RootCategory,
+  Style,
+  Thickness,
+} from "./types";
+import { filterIcons } from "./utils/filterIcons";
 
 const Footer = () => {
   return (
@@ -41,14 +48,23 @@ const NoIcons = () => {
     <div className={styles.NoIcons}>
       Sorry, we don't have this icon yet.
       <br />
-      <a href="mailto:iconoteka.com" target="_blank">Submit icon</a>
+      <a href="mailto:iconoteka.com" target="_blank">
+        Submit icon
+      </a>
     </div>
   );
 };
+
+type SearchParams = {
+  weight: Thickness;
+  style: Style;
+  query: string;
+};
 function Plugin() {
   const [icons, setIcons] = useState<null | any[]>(null);
+  const [iconoteka, setIconoteka] = useState<RootCategory>();
   const [isLoading, setIsLoading] = useState(true);
-  const [searchParams, setSearchParams] = useState({
+  const [searchParams, setSearchParams] = useState<SearchParams>({
     weight: "bold",
     style: "stroke",
     query: "",
@@ -56,15 +72,26 @@ function Plugin() {
 
   useEffect(() => {
     (async () => {
-      const result: any = await fetch(
-        `${backendUrl}/icons/style/${searchParams.style}/weight/${searchParams.weight}?query=${searchParams.query}&useGroups=true`
-      );
-      const icons = await result.json();
+      const result = await fetch(`${backendUrl}/all`);
+      const icons: Iconoteka = await result.json();
 
-      setIcons(icons);
+      setIconoteka(icons.iconoteka);
       setIsLoading(false);
     })();
-  }, [searchParams.weight, searchParams.style, searchParams.query]);
+  }, []);
+
+  useEffect(() => {
+    if (!iconoteka) {
+      return;
+    }
+    const icons = filterIcons(
+      iconoteka,
+      searchParams.query,
+      searchParams.style,
+      searchParams.weight
+    );
+    setIcons(icons);
+  }, [iconoteka, searchParams.weight, searchParams.style, searchParams.query]);
 
   const handleWeightChange = (event: any) => {
     const value = event.target.value;
@@ -191,8 +218,7 @@ function Image(props: ImageProps) {
   };
 
   return (
-    <div 
-    className={styles.iconImageContainer}>
+    <div className={styles.iconImageContainer}>
       {/* <div style={divStyle}></div> */}
       <img
         src={props.src}
