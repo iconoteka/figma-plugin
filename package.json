@@ -1,5 +1,5 @@
 {
-  "version": "0.0.9",
+  "version": "0.0.10",
   "name": "@iconoteka/plugin-figma",
   "dependencies": {
     "@create-figma-plugin/ui": "^1.7.2",
@@ -25,8 +25,8 @@
     "editorType": [
       "figma"
     ],
-    "id": "iconoteka-0.0.9",
-    "name": "Iconoteka Alpha 0.0.9",
+    "id": "iconoteka-0.0.10",
+    "name": "Iconoteka Alpha 0.0.10",
     "main": "src/main.ts",
     "ui": "src/ui.tsx",
     "parameterOnly": false,
