@@ -64,7 +64,7 @@
 
 .footer {
   display: flex;
-  margin-top: 16px;
+  margin-top: 12px;
   padding: 0 var(--space-small) var(--space-small);
 }
 
@@ -97,5 +97,5 @@
 
 .NoIcons a {
   color: var(--font-color-base);
-  font-weight: 200;
+  font-weight: 300;
 }

@@ -41,7 +41,7 @@ const NoIcons = () => {
     <div className={styles.NoIcons}>
       Sorry, we don't have this icon yet.
       <br />
-      <a href="mailto:hello@iconoteka.com">Submit icon</a>
+      <a href="mailto:iconoteka.com" target="_blank">Submit icon</a>
     </div>
   );
 };
@@ -126,7 +126,7 @@ function Plugin() {
       <Divider />
       <Container
         style={{
-          height: "338px",
+          height: "349px",
           overflowY: "auto",
           overflowX: "hidden",
           paddingBottom: "20px",
