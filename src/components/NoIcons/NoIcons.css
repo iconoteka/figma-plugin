@@ -1,0 +1,9 @@
+.NoIcons {
+  margin-top: 14px;
+  line-height: 18px;
+}
+
+.NoIcons a {
+  color: var(--font-color-base);
+  font-weight: 300;
+}
