@@ -10,19 +10,14 @@ import {
   VerticalSpace,
 } from "@create-figma-plugin/ui";
 import styles from "./ui.css";
-import useObserver from "preact-intersection-observer";
+import { useObserver } from "preact-intersection-observer";
 import { version } from "../package.json";
 const backendUrl = "https://staging.iconoteka.com:8080";
 
 import { emit } from "@create-figma-plugin/utilities";
 import { h } from "preact";
 import { useState, useEffect } from "preact/hooks";
-import {
-  Iconoteka,
-  RootCategory,
-  Style,
-  Thickness,
-} from "./types";
+import { Iconoteka, RootCategory, Style, Thickness } from "./types";
 import { filterIcons } from "./utils/filterIcons";
 
 const Footer = () => {
@@ -200,26 +195,12 @@ type ImageProps = {
   onClick: (event: any) => void;
 };
 function Image(props: ImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [placeholderClass, setPlaceholderClass] = useState("");
-
-  useEffect(() => {
-    let img = new window.Image();
-    img.src = props.src;
-    img.onload = onImageLoad;
-  }, []);
-
-  const onImageLoad = () => {
-    setIsLoaded(true);
-  };
-
   const style = {
-    opacity: isLoaded ? 1 : 0,
+    opacity: props.src !== "" ? 1 : 0,
   };
 
   return (
     <div className={styles.iconImageContainer}>
-      {/* <div style={divStyle}></div> */}
       <img
         src={props.src}
         class={styles.iconImage}
@@ -241,11 +222,12 @@ function Icon(props: any) {
     })();
   };
 
+  const urlToUse = isVisible ? url : "";
   return (
     <div class={styles.iconContainer}>
       <div className={`${styles.iconPlaceholder}`}></div>
 
-      {isVisible && <Image src={url} onClick={handleClick} />}
+      <Image src={urlToUse} onClick={handleClick} />
     </div>
   );
 }

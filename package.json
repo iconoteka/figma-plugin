@@ -8,7 +8,7 @@
     "js-search": "^2.0.1",
     "porter-stemmer": "^0.9.1",
     "preact": "^10",
-    "preact-intersection-observer": "^1.0.3"
+    "preact-intersection-observer": "^2.3.6"
   },
   "devDependencies": {
     "@create-figma-plugin/build": "^1.7.2",
